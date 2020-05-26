@@ -1,0 +1,15 @@
+// whoisapitest.js
+'use-strict';
+
+const expect = require("chai").expect;
+const index = require("../whoisapi.js");
+const exampleRecord =  require('./resources/example-whoisrecord.json');
+
+// TODO: create unit test to mock the api request
+describe("whoisapi", () => {
+    it("returns api call from endpoint", () => {
+            const google = index.getWhoIs("https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=/* apikey */&outputFormat=json&domainName=google.com");
+
+            expect(google).to.equal({"records": [exampleRecord]});
+    });
+});

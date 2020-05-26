@@ -3,9 +3,13 @@
 
 const https = require('https');
 
-var ipApi = "https://freegeoip.app/json/";
+let custId = '';
+let apiKey = '';
 
-/* this is the code running in the AWS Lambda */
+const auth = new Buffer(custId + ':' + apiKey).toString('base64')
+
+const api = "https://jsonwhoisapi.com/api/v1/whois?identifier=";
+
 
 /* wanted to use this library but went with inculded packages for backend
 var whois = require('whois')
@@ -39,15 +43,15 @@ exports.handler = async (event) => {
     }
 
     if (ipAddress) {
-        url = ipApi + ipAddress;
+        url = api + ipAddress;
     } else if (domainFileHash) {
-        url = ipApi + domainFileHash;
+        url = apipi + domainFileHash;
     }
     return httprequest(url).then((data) => {
         const response = {
             statusCode: 200,
             // this is here due to frontend object necessity, eventually this will not be needed
-            body: JSON.stringify({"businesses": [data]}),
+            body: JSON.stringify({"records": [data]}),
         };
         return response;
     });
@@ -56,7 +60,10 @@ exports.handler = async (event) => {
 function httprequest(url) {
     return new Promise((resolve, reject) => {
         const options = {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                'Authorization': 'Basic ' + auth
+            }
         };
         const req = https.request(url, options, (res) => {
             if (res.statusCode < 200 || res.statusCode >= 300) {
@@ -82,6 +89,3 @@ function httprequest(url) {
         req.end();
     });
 }
-
-
-//module.exports = index;
