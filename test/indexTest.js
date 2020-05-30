@@ -6,6 +6,7 @@ const index = require('../index.js');
 describe("aws gateway function for get url geoip info", function() {
     describe("verifies whether blank url is checked", function() {
         // TODO: implement test to check the api call return is as expected
+        // TODO: implement test for the async and event event.queryStringParameters && event.queryStringParameters.ipAddress
         /*it("returns api call from endpoint", function() {
             let apiUrl = 'https://freegeoip.app/json/';
             let endpoint = apiUrl + 'google.com';
