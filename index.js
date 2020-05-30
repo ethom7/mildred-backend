@@ -7,7 +7,7 @@ var ipApi = "https://freegeoip.app/json/";
 
 /* this is the code running in the AWS Lambda */
 
-/* wanted to use this library but went with inculded packages for backend
+/* wanted to use this library but went with included packages for backend
 var whois = require('whois')
 
 export function lookupWhois(inputString) {
@@ -20,8 +20,8 @@ export function lookupWhois(inputString) {
 
 exports.handler = async (event) => {
     let ipAddress = "";
-    let domainFileHash = '';
-    var url = "";
+    //let domainFileHash = '';
+    let url = "";
 
     if (event.queryStringParameters && event.queryStringParameters.ipAddress) {
         console.log("Received ipAddress: " + event.queryStringParameters.ipAddress);
@@ -29,20 +29,26 @@ exports.handler = async (event) => {
     }
 
     // currently unused but wanted to leave the functionality for later use potentially
-    if (event.body) {
+    /*if (event.body) {
         let body = JSON.parse(event.body)
         if (body.domainFileHash) {
             console.log("Received domainFileHash: " + body.domainFileHash);
             domainFileHash = body.domainFileHash;
         }
 
-    }
+    }*/
 
     if (ipAddress) {
         url = ipApi + ipAddress;
-    } else if (domainFileHash) {
+    } /*else if (domainFileHash) {
         url = ipApi + domainFileHash;
+    }*/
+
+    if (!checkForBlankUrl(url)) {
+        console.log("url is not set. no endpoint to perform against.");
+        throw new Error("no url provided, please correct and try again.")
     }
+
     return httprequest(url).then((data) => {
         const response = {
             statusCode: 200,
@@ -83,5 +89,8 @@ function httprequest(url) {
     });
 }
 
+const checkForBlankUrl = function(url) {
+    return Boolean(url);
+}
 
-//module.exports = index;
+module.exports = { checkForBlankUrl };

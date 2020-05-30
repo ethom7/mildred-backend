@@ -3,6 +3,7 @@
 'use strict';
 console.log('Loading hello world function');
 
+/* this is an example hello world js file */
 exports.handler = async (event) => {
     let name = "you";
     let city = 'World';

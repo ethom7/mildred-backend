@@ -16,6 +16,7 @@
   "author": "evan thompson",
   "license": "ISC",
   "devDependencies": {
-    "chai": "^4.2.0"
+    "chai": "^4.2.0",
+    "mocha": "^7.2.0"
   }
 }

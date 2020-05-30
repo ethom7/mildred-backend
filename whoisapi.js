@@ -6,6 +6,11 @@ const https = require('https');
 let custId = '';
 let apiKey = '';
 
+/* this file was intended to be used as a second api get call for the application project but for some reason the api
+would not return a valid response from the url when provided the api key. this is true when also ran in postman. unable
+to remedy the issue in a timely manner, so this is saved for a future iteration.
+ */
+
 const auth = new Buffer(custId + ':' + apiKey).toString('base64')
 
 const api = "https://jsonwhoisapi.com/api/v1/whois?identifier=";

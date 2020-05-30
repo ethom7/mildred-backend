@@ -2,6 +2,9 @@
 
 'use strict';
 
+/*
+    a test file used in the process of creating the project. saved for future reference.
+ */
 
 const https = require('https')
 
